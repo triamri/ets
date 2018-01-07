@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bhasca-189715",
+  "private_key_id": "e811adab885a87b535fd422e468626a744c0c821",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDBVVWiIK4FRIK9\nuF9PlEImrKadmyrUKiZqo82DCex7DYOY1gq1slYfI7wdSfHrNn2yPelNdtv3huwN\nCgBZrcjotNWsQePcBzfQkOkW+QuxZyz6VrpjdP8jDmPKf4AdHt5UhvJD8u0DZBbi\nUv7ocwuOByL+vggXoPziLEPW4APb+R84qryXAdatO1thiY5tXyMlWdzvBPzcLH0N\nMfI90XTlO0V5588tFHfkPs6e7jzxT7IM90vD+03aA66k4KQ7E1/UkAJeXQ7Scsw3\nKX1VSpJuj+lrDSUroWR9ovVOhWXwA1ZqS8cMUfeKZLe5e14zh/AOIDVj4Li8bzpH\nukoF0PSxAgMBAAECggEAB/61krBOR0/SJkgBwlfhCm9jroB/BhS+JPUkJ7Huh8It\nzya0J60PIazdInWZ3akRtqAXzfPHMevFnDPDLZzhrOSO3NeWtX/OP5Tr3AmC1xxr\nVZOQ6VGqcV0uzu4fMqpsSvY6U4lauCQDTEBeuTx0swlkLuurMwBIejlBZEPm9PQ8\nfmRVp1OyGgZEjPASnU74LRe0Dsbk3MCQs5KULMCe5Ohid5xb8rzxq9MsehUDbCNZ\nmk33cNBBqK3bJU9OIT5tvQv+Rwvx74u7p+ElHAQZn4COfK/ENhIFewEZzsw8WRe/\nmTtU37MttRSSLrCZKD/jcYtfZtpB/7s3VzM5LB93SQKBgQDjD3m/OIFRAxSAbSWI\nEJwNNovpSikq/AATWbmWiLxi497lUrC0Zhu2vvf+VO7GqUNnAb+ORZv+eujGkHGg\nrRxu0NK6S/1217IR/gJKcpE4GwilsVHteSKEuAtxi69kP6C4foqcxdMyseIuTs/x\npoPYt0ETZoDMNuIwMeA95A4aXQKBgQDZ+WlIdvMfoMPzEc2X/4HY7A+SJfUXGbS4\nyCVeRhCd7ZexJv7ZPrFuP4DwwkLTo9YpOoT8D+ZDZaMaCHUs2CQYN6uGKL08Xukr\nG2bNY8xjktikYafc9AM04IlZCyv7bHXCHcsCqZv/PofteLOoCwEhAxJ9/MbyFH6Y\nmcIFA8XmZQKBgERics5unDPj85bCSJ10Myufk//NAB0cDIHHcieuQt6dtpHml6Wd\nYxdk6JfGyKs4az5ovmKBAHxiVB0Jf89ek8OkTPMi09GpIM5ebB4z5xy4t5//iac1\n5nmGXJvz7/0HVMZ8Bg81XWhVPsOnpOUou2jXuFe5dW0L0o+lVd4OA1lZAoGAeCkm\nAOyR2j2lx7lovQH9crevXcHO+o0RM0wiTXYScv0nQmFc3CXTahNX4WE1tbX7uX6p\nEMszBLRi1VcUQURloXQO+kY7C6zGnRzd7xu08K9i/jtXblaV7fBZxtyBwnhn8jq6\nTx1xAaRXCnIfl+N5G9m1t/5BLfJeV4Frk5gg4IECgYBuh8x0QbpQHJ6QfgTeX20s\nF/BysYordLiJQ94eoOZgDGWeznWga6OP6Wy0e3y4ZKsEinBNCSGZbpaBUDqAMaLW\nHO2c3QzE1FUMq2sTwufG7urZXOhiW8PBI+a57A5aBAp2CPQBadKp5EpjucDJ+WwV\njDKOLld0kf2iisPMRyk0kg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "get-bhasca@bhasca-189715.iam.gserviceaccount.com",
+  "client_id": "115725732737785799469",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/get-bhasca%40bhasca-189715.iam.gserviceaccount.com"
+}
