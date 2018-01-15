@@ -70,7 +70,7 @@ let postCreate = (req, res) => {
   }
 
   const newEts = new Ets({
-    userID: req.body.userID,
+    userID: req.getData.id,
     foto: req.file.cloudStoragePublicUrl,
     caption: req.body.caption,
     comment: []
@@ -90,13 +90,37 @@ let postCreate = (req, res) => {
 }
 
 let putUpdate = (req, res) => {
+    Ets.findOne({
+      _id: req.params.id,
+      userID: req.getData.id
+    })
+    .then((result) => {
+      result.caption = req.body.caption || result.caption
+
+      result.save()
+        .then((updateData) => {
+          res.status(200).json({
+            msg: 'sukses',
+            data: updateData
+          })
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        })
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    })
+}
+
+let putUpdateFoto = (req, res) => {
   Ets.findOne({
       _id: req.params.id,
       userID: req.getData.id
     })
     .then((result) => {
-      result.foto = req.file.cloudStoragePublicUrl || result.foto,
-        result.caption = req.body.caption || result.caption
+      result.foto = req.file.cloudStoragePublicUrl,
+      result.caption = req.body.caption || result.caption
 
       result.save()
         .then((updateData) => {
@@ -116,7 +140,8 @@ let putUpdate = (req, res) => {
 
 let putLike = (req, res) => {
   Ets.update({
-      _id: req.params.id
+      _id: req.params.id,
+      userID: req.getData.id
     },{
       $push:{
         like:{
@@ -137,7 +162,8 @@ let putLike = (req, res) => {
 
 let putUnlike = (req, res) => {
   Ets.update({
-      _id: req.params.id
+      _id: req.params.id,
+      userID: req.getData.id
     },{
       $pull:{
         like:{
@@ -158,7 +184,8 @@ let putUnlike = (req, res) => {
 
 let putComment = (req, res) => {
   Ets.update({
-      _id: req.body.id
+      _id: req.body.id,
+      userID: req.getData.id
     },{
       $push:{
         comment:{
@@ -180,7 +207,8 @@ let putComment = (req, res) => {
 
 let remove = (req, res) => {
   Ets.remove({
-      _id: req.params.id
+      _id: req.params.id,
+      userID: req.getData.id
     })
     .then((removedata) => {
       res.status(200).json({
@@ -200,6 +228,7 @@ module.exports = {
   detailUser,
   postCreate,
   putUpdate,
+  putUpdateFoto,
   putLike,
   putUnlike,
   putComment,

@@ -27,6 +27,7 @@ let signIn = (req, res) => {
 }
 
 let signOut = (req, res) => {
+  console.log(req.body.email);
   User.findOne({
       email: req.body.email
     })
@@ -46,12 +47,14 @@ let signOut = (req, res) => {
       }
 
       jwt.sign({
+        id: result._id,
         email: result.email,
         first: result.first_name
       }, process.env.SECRET_KEY, (err, token) => {
         res.status(200).json({
           msg: 'Login Sukses',
-          data: token
+          data: result,
+          token: token
         })
       });
 
@@ -59,9 +62,25 @@ let signOut = (req, res) => {
     .catch((err) => {
       res.status(500).json(err);
     })
-};
+}
+
+let getUser = (req, res) => {
+  User.findById(req.getData.id)
+  .populate('followers.userID')
+  .populate('follows.userID')
+  .then((result) => {
+    res.status(200).json({
+      msg: 'sukses',
+      data: result
+    })
+  })
+  .catch(err => {
+    res.status(500).json(err)
+  })
+}
 
 module.exports = {
   signIn,
-  signOut
+  signOut,
+  getUser
 }
