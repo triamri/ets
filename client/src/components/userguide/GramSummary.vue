@@ -2,15 +2,17 @@
   <div class="col-lg-6 col-sm-6 portfolio-item padding-top-row">
     <div class="card h-100">
       <img class="card-img-top" :src="gram.foto" :alt="gram.caption">
+      {{ gram.like.find(function (obj) { return obj.userID === users._id }) }}
       <div class="card-footer">
-        <small class="text-muted cursor"><i class="fa fa-thumbs-o-up cursor"  @click="sendLike(gram)"></i> {{ gram.like.length }}</small>        
+        <small class="text-muted cursor" v-if="gram.userID._id === users._id"><i class="fa fa-thumbs-o-up cursor"></i> {{ gram.like.length }}</small>
+        <small class="text-muted cursor" v-else-if="gram.like.indexOf(users._id) == -1"><i class="fa fa-thumbs-o-up cursor" @click="sendLike(gram)"></i> {{ gram.like.length }}</small>        
         <small class="text-muted cursor" style="padding-left:50px"><i class="fa fa-comment-o"></i> {{ gram.comment.length }}</small>
-        <small class="text-muted cursor" style="padding-left:50px" v-if="isEdit == false"><i class="fa fa-edit" @click="editShow"></i></small>
-        <small class="text-muted cursor" style="padding-left:50px" v-else><i class="fa fa-edit" @click="editHide"></i></small>
-        <small class="text-muted cursor" style="padding-left:50px"><i class="fa fa-trash"></i></small>
+          <small class="text-muted cursor" style="padding-left:50px" v-if="isEdit == false && gram.userID._id === users._id"><i class="fa fa-edit" @click="editShow"></i></small>
+          <small v-if="gram.userID._id === users._id" class="text-muted cursor" style="padding-left:50px"><i class="fa fa-trash"></i></small>
       </div>
       <div v-if="isEdit == false">
       <div class="card-body">
+        <small>{{ gram.userID.first_name }} {{ gram.userID.last_name }}</small>
         <p class="card-text">{{ gram.caption }}</p>
       </div>
       <div class="card-footer">
@@ -21,7 +23,7 @@
         <div v-for="comment in gram.comment" :key="comment">
           <small>{{ comment.komentar }}</small><br />
         </div>
-        <input type="text" v-model="comment" @keyup.enter="sendComment">
+        <input v-if="gram.userID._id == users._id" type="text" v-model="comment" @keyup.enter="sendComment">
       </div>
       </div>
       <div v-if="isEdit">
@@ -43,17 +45,25 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
       isComment: false,
       isEdit: false,
       comment: '',
-      newFile: ''
+      newFile: '',
+      iddata: {
+        userID: '5a52532d320a8712151c4ae5'
+      }
     }
   },
   props: ['gram'],
+  computed: {
+    ...mapState([
+      'users'
+    ])
+  },
   methods: {
     ...mapActions([
       'sendLike',
@@ -103,7 +113,7 @@ export default {
     sendComment () {
       const payload = {
         id: this.gram._id,
-        userID: '5a52532d320a8712151c4ae5',
+        userID: user._id,
         komentar: this.comment,
         gram: this.gram
       }

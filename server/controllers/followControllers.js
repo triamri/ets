@@ -3,7 +3,7 @@ const User = require('../models/userModels');
 
 let getFollow = (req, res) => {
   User.update({
-    _id:'5a52532d320a8712151c4ae5'
+    _id: req.getData.id
   },{
     $push: {
       follows:{ 
@@ -17,15 +17,57 @@ let getFollow = (req, res) => {
     },{
       $push: {
         followers: {
-          userID: '5a52532d320a8712151c4ae5'
+          userID: req.getData.id
         }
       }
     })
     .then((result)=>{
-      res.status(200).json({
-        msg: 'Sukses',
-        data: result
-      });
+      User.findById(req.getData.id)
+      .populate('followers.userID')
+      .populate('follows.userID')
+      .then((get) => {
+        res.status(200).json({
+          msg: 'sukses',
+          data: get
+        })
+      })
+    })
+  })
+  .catch((error)=>{
+    res.status(403).json(error);
+  })
+}
+
+let unFollow = (req, res) => {
+  User.update({
+    _id: req.getData.id
+  },{
+    $pull: {
+      follows:{ 
+        userID: req.params.id 
+      }
+    }
+  })
+  .then((result)=>{
+    User.update({
+      _id: req.params.id
+    },{
+      $pull: {
+        followers: {
+          userID: req.getData.id
+        }
+      }
+    })
+    .then((result)=>{
+      User.findById(req.getData.id)
+      .populate('followers.userID')
+      .populate('follows.userID')
+      .then((get) => {
+        res.status(200).json({
+          msg: 'sukses',
+          data: get
+        })
+      })
     })
   })
   .catch((error)=>{
@@ -35,5 +77,6 @@ let getFollow = (req, res) => {
 
 
 module.exports = {
-  getFollow
+  getFollow,
+  unFollow
 }

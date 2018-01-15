@@ -7,10 +7,16 @@
 
 <script>
 import TheNavbar from '@/components/navbar/TheNavbar'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'app',
   components: {
     TheNavbar
+  },
+  mapActions: {
+    ...mapActions([
+      'setUsers'
+    ])
   }
 }
 </script>

@@ -9,7 +9,7 @@
               </div>
               <br />
               <div class="input-group">
-                <input type="file" @change="processFile($event)">
+                <input type="file" id="file" @change="processFile($event)">
               </div>
               <br />
               <div class="input-group">
@@ -23,13 +23,18 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
       caption: '',
       someData: ''
     }
+  },
+  computed: {
+    ...mapState([
+      'users'
+    ])
   },
   methods: {
     ...mapActions([
@@ -39,12 +44,13 @@ export default {
       this.someData = event.target.files[0]
     },
     tambahGram () {
-      console.log(this.someData)
       let payload = {
-        userID: '5a52532d320a8712151c4ae5',
+        userID: this.users._id,
         foto: this.someData,
         caption: this.caption
       }
+      this.caption = ''
+      document.getElementById('file').value = ''
       this.submitGram (payload)
     }
   }

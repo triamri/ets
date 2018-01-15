@@ -68,10 +68,10 @@ let getUser = (req, res) => {
   User.findById(req.getData.id)
   .populate('followers.userID')
   .populate('follows.userID')
-  .then((result) => {
+  .then((results) => {
     res.status(200).json({
       msg: 'sukses',
-      data: result
+      data: results
     })
   })
   .catch(err => {

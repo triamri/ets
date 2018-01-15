@@ -78,9 +78,13 @@ let postCreate = (req, res) => {
 
   newEts.save()
     .then((result) => {
-      res.status(200).json({
-        msg: 'sukses',
-        data: result
+      Ets.findById(result._id)
+      .populate('userID')
+      .then((get) => {
+        res.status(200).json({
+          msg: 'sukses',
+          data: get
+        })
       })
     })
     .catch(err => {
@@ -140,12 +144,11 @@ let putUpdateFoto = (req, res) => {
 
 let putLike = (req, res) => {
   Ets.update({
-      _id: req.params.id,
-      userID: req.getData.id
+      _id: req.params.id
     },{
       $push:{
         like:{
-          userID: '5a52532d320a8712151c4ae5'
+          userID: req.getData.id
         }
       }
     })
@@ -162,12 +165,11 @@ let putLike = (req, res) => {
 
 let putUnlike = (req, res) => {
   Ets.update({
-      _id: req.params.id,
-      userID: req.getData.id
+      _id: req.params.id
     },{
       $pull:{
         like:{
-          userID: '5a52532d320a8712151c4ae5'
+          userID: req.getData.id
         }
       }
     })

@@ -50,8 +50,12 @@ const store = new Vuex.Store({
     saveUnlike (state, payload) {
     },
     saveFollow (state, payload) {
+      state.users = payload
+      // console.log(state.users)
     },
-    saveUnfolow (state, payload) {
+    saveUnfollow (state, payload) {
+      state.users = payload
+      // console.log(state.users)
     },
     saveComment (state, payload) {
       let index = state.grams.indexOf(payload.gram)
@@ -66,8 +70,9 @@ const store = new Vuex.Store({
       axios.post(`http://localhost:3000/api/users/signout`, payload)
       .then(({ data }) => {
         localStorage.setItem('token', data.token)
-        router.push({ name: 'Home'})
         commit('setLogin', true)
+        commit('setUser', data.data)
+        router.push({ name: 'Home'})
       })
       .catch(err => console.log(err))
     },
@@ -89,6 +94,7 @@ const store = new Vuex.Store({
         }
       })
       .then(({ data }) => {
+        console.log(data.data)
         commit('setUsers', data.data)
       })
       .catch(err => console.log(err))
@@ -104,6 +110,7 @@ const store = new Vuex.Store({
         }
       })
       .then(({ data }) => {
+        console.log(data.data)
         commit('saveGram', data.data)
       })
       .catch(err => console.log(err))
@@ -146,7 +153,7 @@ const store = new Vuex.Store({
         }
       })
       .then(({ data }) => {
-        commit('saveLike', { payload, id: '5a52532d320a8712151c4ae5' })
+        commit('saveLike', { payload, id: payload._id })
       }).
       catch(err => console.log(err))
     },
@@ -169,10 +176,28 @@ const store = new Vuex.Store({
       .catch(err => console.log(err))
     },
     submitFollow ({ commit }, payload) {
-
+      axios.get(`http://localhost:3000/api/follows/followers/${ payload }`, {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+      .then((response) => {
+        // console.log(response.data.data)
+        commit('saveFollow', response.data.data)
+      })
+      .catch(err => console.log(err))
     },
     submitUnfollow ({ commit }, payload) {
-
+      axios.get(`http://localhost:3000/api/follows/unfolow/${ payload }`, {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+      .then((response) => {
+        // console.log(response.data.data)
+        commit('saveUnfollow', response.data.data)
+      })
+      .catch(err => console.log(err))
     }
   }
 })

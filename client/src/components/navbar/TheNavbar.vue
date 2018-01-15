@@ -10,18 +10,10 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">Home
-                    <span class="sr-only">(current)</span>
-                  </a>
+                  <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
+                  <router-link class="nav-link" to="/search">Search</router-link>
                 </li>
               </ul>
             </div>
