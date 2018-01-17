@@ -5,6 +5,7 @@ import SignUp from '@/components/public/SignUp'
 import Login from '@/components/public/Login'
 import Home from '@/components/userguide/Home'
 import About from '@/components/userguide/About'
+import SearchUser from '@/components/userguide/SearchUser'
 
 Vue.use(Router)
 
@@ -17,14 +18,9 @@ export default new Router({
       component: DashBoard
     },
     {
-      path: '/signup',
+      path: '/register',
       name: 'SignUp',
       component: SignUp
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
     },
     {
       path: '/dashboard',
@@ -35,6 +31,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: SearchUser
     }
   ]
 })

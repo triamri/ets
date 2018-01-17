@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="container padding-top">
-      <about-list></about-list>  
+      <users-list></users-list>  
     </div>
   </div>
 </template>
 <script>
-import AboutList from './AboutList'
+import UsersList from './UsersList'
 export default {
   components: {
-    AboutList
+    UsersList
   }
 }
 </script>

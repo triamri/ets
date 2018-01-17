@@ -79,8 +79,22 @@ let getUser = (req, res) => {
   })
 }
 
+let getUserAll = (req, res) => {
+  User.find()
+  .then((results) => {
+    res.status(200).json({
+      msg: 'sukses',
+      data: results
+    })
+  })
+  .catch(err => {
+    res.status(500).json(err)
+  })
+}
+
 module.exports = {
   signIn,
   signOut,
-  getUser
+  getUser,
+  getUserAll
 }

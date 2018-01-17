@@ -10,10 +10,22 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                  <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                  <router-link class="nav-link" v-if="isLogin === false" to="/">Dashboard</router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
+                  <router-link class="nav-link" v-if="isLogin" to="/dashboard">Dashboard</router-link>
+                </li>
+                <li class="nav-item" v-if="isLogin">
+                  <router-link class="nav-link" to="/about">About</router-link>
+                </li>
+                <li class="nav-item" v-if="isLogin">
                   <router-link class="nav-link" to="/search">Search</router-link>
+                </li>
+                <li class="nav-item" v-if="isLogin === false">
+                  <router-link class="nav-link" to="/register">Register</router-link>
+                </li>
+                <li class="nav-item" v-if="isLogin">
+                  <a class="nav-link" @click="userLogout">logout</a>
                 </li>
               </ul>
             </div>
@@ -22,7 +34,21 @@
   </div>
 </template>
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
-  
+  computed: {
+    ...mapState([
+      'isLogin'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'cekLogin',
+      'userLogout'
+    ])
+  },
+  created () {
+    this.cekLogin()
+  }
 }
 </script>

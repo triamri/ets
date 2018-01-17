@@ -1,34 +1,34 @@
 <template>
 <div>
   <post-gram></post-gram>
-      <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-8">
         <div class="row">
-          <gram-summary v-for="gram in grams" :key="gram" :gram="gram"></gram-summary>
+          <user-summary v-for="user in usersall" :key="user" :userAll="user"></user-summary>
         </div>
+      </div>
     </div>
 </div>
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import GramSummary from './GramSummary'
-import PostGram from './PostGram'
+import UserSummary from './UserSummary'
 export default {
   components: {
-    GramSummary,
-    PostGram
+    UserSummary
   },
   computed: {
     ...mapState([
-      'grams'
+      'usersall'
     ])
   },
   methods: {
     ...mapActions([
-      'getGrams'
+      'getUserAll'
     ])
   },
   created () {
-    this.getGrams ()
+    this.getUserAll ()
   }
 }
 </script>

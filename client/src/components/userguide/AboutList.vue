@@ -1,10 +1,13 @@
 <template>
 <div>
   <post-gram></post-gram>
-      <div class="col-md-12">
+    <div class="row">
+      <kategori-gram></kategori-gram>
+      <div class="col-md-8">
         <div class="row">
           <gram-summary v-for="gram in grams" :key="gram" :gram="gram"></gram-summary>
         </div>
+      </div>
     </div>
 </div>
 </template>
@@ -12,10 +15,12 @@
 import { mapActions, mapState } from 'vuex'
 import GramSummary from './GramSummary'
 import PostGram from './PostGram'
+import KategoriGram from './KategoriGram'
 export default {
   components: {
     GramSummary,
-    PostGram
+    PostGram,
+    KategoriGram
   },
   computed: {
     ...mapState([
@@ -24,11 +29,11 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getGrams'
+      'getGramsUser'
     ])
   },
   created () {
-    this.getGrams ()
+    this.getGramsUser ()
   }
 }
 </script>

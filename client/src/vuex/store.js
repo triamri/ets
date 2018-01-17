@@ -13,6 +13,7 @@ const store = new Vuex.Store({
   state: {
     grams: [],
     users: [],
+    usersall: [],
     user: '',
     isLogin: false
   },
@@ -23,6 +24,9 @@ const store = new Vuex.Store({
     setUser (state, payload) {
       state.user = payload
     },
+    setUserAll (state, payload) {
+      state.usersall = payload
+    },
     setLogin (state, payload) {
       state.isLogin = payload
     },
@@ -32,13 +36,14 @@ const store = new Vuex.Store({
     saveGram (state, payload) {
       state.grams.push(payload)
     },
+    removeData (state, payload){
+      let index = state.grams.indexOf(payload)
+      state.grams.splice(index, 1)
+    },
     editGram (state, payload) {
       let index = state.grams.indexOf(payload.load)
       state.grams[index].caption = payload.save.caption
       state.grams[index].foto = payload.save.foto
-    },
-    saveLikeGram (state, payload) {
-
     },
     saveLike (state, load) {
       let index = state.grams.indexOf(load.payload)
@@ -72,9 +77,28 @@ const store = new Vuex.Store({
         localStorage.setItem('token', data.token)
         commit('setLogin', true)
         commit('setUser', data.data)
-        router.push({ name: 'Home'})
+        router.push({ name: 'About'})
       })
       .catch(err => console.log(err))
+    },
+    registerUser ({ commit }, payload) {
+      axios.post(`http://localhost:3000/api/users/signin`, payload)
+      .then(({ data }) => {
+        router.push({ name: 'DashBoard'})
+      })
+      .catch(err => console.log(err))
+    },
+    cekLogin ({ commit }) {
+      if(localStorage.getItem('token')){
+        commit('setLogin', true)
+      }
+    },
+    userLogout ({ commit }) {
+      localStorage.clear()
+      commit('setLogin', false)
+      router.push({
+        name: 'DashBoard'
+      })
     },
     getGrams ({ commit }, payload) {
       axios.get(`http://localhost:3000/api/ets/all`, {
@@ -83,6 +107,19 @@ const store = new Vuex.Store({
         }
       })
       .then(({ data }) => {
+        console.log(data.data)
+        commit('setGrams', data.data)
+      })
+      .catch(err => console.log(err))
+    },
+    getGramsUser ({ commit }, payload) {
+      axios.get(`http://localhost:3000/api/ets/alluser`, {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+      .then(({ data }) => {
+        console.log(data.data)
         commit('setGrams', data.data)
       })
       .catch(err => console.log(err))
@@ -96,6 +133,18 @@ const store = new Vuex.Store({
       .then(({ data }) => {
         console.log(data.data)
         commit('setUsers', data.data)
+      })
+      .catch(err => console.log(err))
+    },
+    getUserAll ({ commit }, payload){
+      axios.get(`http://localhost:3000/api/users/all`, {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+      .then(({ data }) => {
+        console.log(data.data)
+        commit('setUserAll', data.data)
       })
       .catch(err => console.log(err))
     },
@@ -143,8 +192,16 @@ const store = new Vuex.Store({
         .catch(err => console.log(err))
       }
     },
-    submitDeleteGram ({ commit }, payload) {
-
+    removePost ({ commit }, payload) {
+      axios.delete(`http://localhost:3000/api/ets/remove/${payload._id}`, {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+      .then(({ data }) => {
+        commit('removeData', payload)
+      }).
+      catch(err => console.log(err))
     },
     sendLike ({ commit }, payload) {
       axios.get(`http://localhost:3000/api/ets/likes/${payload._id}`, {
@@ -161,8 +218,9 @@ const store = new Vuex.Store({
 
     },
     submitComment ({ commit }, payload) {
+      console.log(payload)
       axios.put(`http://localhost:3000/api/ets/comment`, {
-        id: payload. id,
+        id: payload.id,
         UserID: payload.UserID,
         komentar: payload.komentar
       }, {

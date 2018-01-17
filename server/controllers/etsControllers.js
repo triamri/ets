@@ -30,7 +30,7 @@ let detailAll = (req, res) => {
 }
 
 let getUser = (req, res) => {
-  Ets.findOne({
+  Ets.find({
       userID: req.getData.id
     })
     .populate('userID')
@@ -186,12 +186,11 @@ let putUnlike = (req, res) => {
 
 let putComment = (req, res) => {
   Ets.update({
-      _id: req.body.id,
-      userID: req.getData.id
+      _id: req.body.id
     },{
       $push:{
         comment:{
-          userID: req.body.userID,
+          userID: req.getData.id,
           komentar: req.body.komentar
         }
       }
