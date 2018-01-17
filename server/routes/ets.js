@@ -5,7 +5,7 @@ const Auth = require('../middleware/auto');
 const router = express.Router();
 
 /* GET home page. */
-router.get('/all', Auth.isLogin, Ets.getAll);
+router.get('/all', Ets.getAll);
 router.get('/detailall', Auth.isLogin, Ets.detailAll);
 router.get('/alluser', Auth.isLogin, Ets.getUser);
 router.get('/detailuser', Auth.isLogin, Ets.detailUser);

@@ -4,8 +4,8 @@
       <img class="card-img-top" :src="gram.foto" :alt="gram.caption">
       <div class="card-footer">
         <small class="text-muted cursor" v-if="gram.userID._id === users._id"><i class="fa fa-thumbs-o-up cursor"></i> {{ gram.like.length }}</small>
-        <small class="text-muted cursor" v-else-if="cekUserLike.userID !== users._id">
-          <i class="fa fa-thumbs-o-up cursor" @click="sendLike(gram)">y</i>
+        <small class="text-muted cursor" v-else >
+          <i class="fa fa-thumbs-o-up cursor" @click="sendLike(gram)"></i>
           {{ gram.like.length }}
         </small>
         <small class="text-muted cursor" v-else>

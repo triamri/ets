@@ -56,11 +56,9 @@ const store = new Vuex.Store({
     },
     saveFollow (state, payload) {
       state.users = payload
-      // console.log(state.users)
     },
     saveUnfollow (state, payload) {
       state.users = payload
-      // console.log(state.users)
     },
     saveComment (state, payload) {
       let index = state.grams.indexOf(payload.gram)
